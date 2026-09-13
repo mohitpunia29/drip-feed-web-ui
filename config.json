@@ -1,0 +1,48 @@
+{
+  "app": {
+    "name": "SnapStudio",
+    "tagline": "AI-Powered Outfit Styling",
+    "description": "Transform your style with AI-powered outfit recommendations. Get real-time feedback and discover perfect looks instantly.",
+    "version": "1.0.0"
+  },
+  "links": {
+    "appStore": {
+      "url": "",
+      "enabled": false,
+      "comingSoon": true,
+      "label": "App Store"
+    },
+    "googlePlay": {
+      "url": "",
+      "enabled": false,
+      "comingSoon": true,
+      "label": "Google Play"
+    }
+  },
+  "metadata": {
+    "author": "SnapStudio Team",
+    "year": 2024,
+    "email": "contact@snapstudio.app",
+    "socialMedia": {
+      "twitter": "",
+      "instagram": "",
+      "tiktok": "",
+      "linkedin": ""
+    }
+  },
+  "theme": {
+    "colors": {
+      "bg": "#0A0A0C",
+      "surface1": "#141417",
+      "surface2": "#1E1E22",
+      "text": "#FFFFFF",
+      "textSecondary": "#E5E5E5",
+      "textTertiary": "#A0A0A0",
+      "accent": "#FFFFFF",
+      "accentHover": "#BEE622",
+      "border": "#27272A",
+      "error": "#FF3366",
+      "warning": "#FFB800"
+    }
+  }
+}

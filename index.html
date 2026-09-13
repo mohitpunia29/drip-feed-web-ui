@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnapStudio - AI-Powered Outfit Styling</title>
+    <meta name="description" content="Swipe Share Shop. Transform your style with AI-powered outfit recommendations. Get real-time feedback and discover perfect looks instantly.">
+    <link rel="icon" href="./assets/favicon.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* SnapStudio Color Palette */
+            --bg: #0A0A0C;
+            --surface-1: #141417;
+            --surface-2: #1E1E22;
+            --glass: rgba(20, 20, 23, 0.65);
+            --text: #FFFFFF;
+            --text-secondary: #E5E5E5;
+            --text-tertiary: #A0A0A0;
+            --accent: #FFFFFF;
+            --accent-hover: #BEE622;
+            --border: #27272A;
+            --error: #FF3366;
+            --warning: #FFB800;
+
+            /* Spacing */
+            --xs: 4px;
+            --sm: 8px;
+            --md: 16px;
+            --lg: 24px;
+            --xl: 32px;
+            --xxl: 48px;
+            --xxxl: 64px;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, var(--bg) 0%, var(--surface-1) 100%);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--md) var(--xl);
+            position: sticky;
+            top: 0;
+            background: rgba(10, 10, 12, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--md);
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            object-fit: cover;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--xl);
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-hover);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--xxxl) var(--xl);
+            min-height: 90vh;
+            gap: var(--xxxl);
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .tagline {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-hover);
+            margin-bottom: var(--lg);
+            display: inline-block;
+            background: rgba(190, 230, 34, 0.15);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(190, 230, 34, 0.3);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 700;
+            margin-bottom: var(--lg);
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--accent-hover), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: var(--xxl);
+            line-height: 1.8;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: var(--lg);
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--md);
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-hover), #d4ff00);
+            color: var(--bg);
+            box-shadow: 0 8px 24px rgba(190, 230, 34, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(190, 230, 34, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-hover);
+            color: var(--accent-hover);
+            background: rgba(190, 230, 34, 0.1);
+        }
+
+        .icon-store {
+            width: 24px;
+            height: 24px;
+        }
+
+        .hero-visual {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-image-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-image {
+            width: 280px;
+            height: 280px;
+            border-radius: 40px;
+            background: radial-gradient(circle at 30% 30%, var(--surface-2), var(--surface-1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 80px rgba(190, 230, 34, 0.2), inset 0 0 30px rgba(190, 230, 34, 0.1);
+            border: 1px solid var(--border);
+        }
+
+        .glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 40px;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 60px rgba(190, 230, 34, 0.15), inset 0 0 20px rgba(190, 230, 34, 0.05); }
+            50% { box-shadow: 0 0 80px rgba(190, 230, 34, 0.3), inset 0 0 30px rgba(190, 230, 34, 0.15); }
+        }
+
+        .hero-icon {
+            width: 160px;
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            border-radius: 32px;
+            overflow: hidden;
+        }
+
+        .hero-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 32px;
+        }
+
+        .hanger-icon {
+            font-size: 120px;
+        }
+
+        @media (max-width: 1024px) {
+            .hero {
+                flex-direction: column;
+                padding: var(--xxl) var(--lg);
+                min-height: auto;
+            }
+
+            .hero-visual {
+                width: 100%;
+            }
+
+            .hero-image {
+                width: 240px;
+                height: 240px;
+            }
+
+            .hero-icon {
+                width: 140px;
+                height: 140px;
+                border-radius: 28px;
+            }
+
+            .hero-icon img {
+                border-radius: 28px;
+            }
+
+            .tagline {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
+            .hanger-icon {
+                font-size: 100px;
+            }
+        }
+
+        /* Features Section */
+        .features {
+            padding: var(--xxxl) var(--xl);
+            background: var(--surface-1);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            font-weight: 700;
+            margin-bottom: var(--xxxl);
+            letter-spacing: -0.5px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--xxl);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: var(--surface-2);
+            padding: var(--xxl);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-hover), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent-hover);
+            background: linear-gradient(135deg, var(--surface-2), rgba(190, 230, 34, 0.05));
+            transform: translateY(-4px);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: var(--lg);
+            display: inline-block;
+        }
+
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: var(--md);
+            color: var(--text);
+        }
+
+        .feature-description {
+            color: var(--text-tertiary);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        /* Screenshots Section */
+        .screenshots {
+            padding: var(--xxxl) var(--xl);
+            background: linear-gradient(180deg, var(--bg) 0%, var(--surface-1) 100%);
+        }
+
+        .screenshots-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--xl);
+        }
+
+        .screenshot {
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            aspect-ratio: 1;
+            background: var(--surface-2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .screenshot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 24px;
+        }
+
+        .screenshot:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 50px rgba(190, 230, 34, 0.2);
+        }
+
+        .screenshot-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--surface-1), var(--surface-2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: var(--text-tertiary);
+            text-align: center;
+            padding: var(--lg);
+        }
+
+        /* Shopping Section */
+        .shopping-section {
+            padding: var(--xxxl) var(--xl);
+            background: linear-gradient(135deg, var(--surface-1), var(--bg));
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .shopping-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .shopping-section h2 {
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            font-weight: 700;
+            margin-bottom: var(--md);
+            background: linear-gradient(135deg, var(--accent-hover), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .shopping-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: var(--xxxl);
+            max-width: 600px;
+            line-height: 1.8;
+        }
+
+        .shopping-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--xl);
+        }
+
+        .shopping-feature {
+            padding: var(--xl);
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .shopping-feature:hover {
+            border-color: var(--accent-hover);
+            background: linear-gradient(135deg, var(--surface-2), rgba(190, 230, 34, 0.05));
+            transform: translateY(-4px);
+        }
+
+        .shopping-icon {
+            font-size: 40px;
+            margin-bottom: var(--md);
+            display: inline-block;
+        }
+
+        .shopping-feature h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: var(--sm);
+            color: var(--text);
+        }
+
+        .shopping-feature p {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            line-height: 1.7;
+        }
+
+        /* Promotional Banner Section */
+        .promo-banner {
+            padding: var(--xxxl) var(--xl);
+            background: linear-gradient(135deg, var(--bg), var(--surface-1));
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .promo-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--xxxl);
+            align-items: center;
+        }
+
+        .promo-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(190, 230, 34, 0.15);
+            border: 1px solid var(--border);
+        }
+
+        .promo-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            max-height: 500px;
+        }
+
+        .promo-text h2 {
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: var(--lg);
+            color: var(--text);
+        }
+
+        .promo-text p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: var(--xl);
+            line-height: 1.8;
+        }
+
+        .promo-features {
+            display: flex;
+            flex-direction: column;
+            gap: var(--md);
+        }
+
+        .promo-feature-item {
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+            color: var(--text-secondary);
+            padding: var(--md);
+            background: rgba(190, 230, 34, 0.1);
+            border-left: 3px solid var(--accent-hover);
+            border-radius: 8px;
+        }
+
+        @media (max-width: 1024px) {
+            .promo-content {
+                grid-template-columns: 1fr;
+                gap: var(--xxl);
+            }
+
+            .promo-image {
+                order: -1;
+            }
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: var(--xxxl) var(--xl);
+            text-align: center;
+            background: var(--surface-1);
+            border-top: 1px solid var(--border);
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            margin-bottom: var(--lg);
+            font-weight: 700;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: var(--xxl);
+        }
+
+        .download-buttons {
+            display: flex;
+            gap: var(--lg);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .store-button {
+            display: flex;
+            align-items: center;
+            gap: var(--sm);
+            padding: var(--lg) var(--xl);
+            background: var(--surface-2);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .store-button:hover {
+            border-color: var(--accent-hover);
+            background: rgba(190, 230, 34, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .store-button.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .store-button.disabled:hover {
+            border-color: var(--border);
+            background: var(--surface-2);
+            transform: none;
+        }
+
+        .store-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Footer */
+        footer {
+            padding: var(--xl);
+            border-top: 1px solid var(--border);
+            background: var(--bg);
+            text-align: center;
+            color: var(--text-tertiary);
+            font-size: 14px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: var(--xl);
+            justify-content: center;
+            margin-bottom: var(--lg);
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-hover);
+        }
+
+        /* Utils */
+        .coming-soon-badge {
+            display: inline-block;
+            background: var(--warning);
+            color: var(--bg);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: var(--md);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: var(--lg);
+            right: var(--lg);
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            padding: var(--lg);
+            border-radius: 12px;
+            color: var(--text);
+            z-index: 1000;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        .notification.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: var(--md) var(--lg);
+            }
+
+            .hero {
+                padding: var(--xxl) var(--lg);
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .features {
+                padding: var(--xxl) var(--lg);
+            }
+
+            .screenshots {
+                padding: var(--xxl) var(--lg);
+            }
+
+            .shopping-section {
+                padding: var(--xxl) var(--lg);
+            }
+
+            .shopping-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .shopping-subtitle {
+                font-size: 16px;
+                margin-bottom: var(--xl);
+            }
+
+            .shopping-features {
+                grid-template-columns: 1fr;
+            }
+
+            .promo-banner {
+                padding: var(--xxl) var(--lg);
+            }
+
+            .promo-content {
+                gap: var(--xl);
+            }
+
+            .promo-text h2 {
+                font-size: 1.8rem;
+            }
+
+            .promo-feature-item {
+                font-size: 14px;
+                padding: var(--md);
+            }
+
+            .cta-section {
+                padding: var(--xxl) var(--lg);
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .download-buttons {
+                flex-direction: column;
+            }
+
+            .store-button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <div class="logo-icon">
+                <img src="./assets/icon.png" alt="SnapStudio Logo">
+            </div>
+            <span>SnapStudio</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#shopping">Shopping</a></li>
+            <li><a href="#download">Download</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <p class="tagline">Swipe Share Shop</p>
+            <h1>
+                Transform Your <span class="highlight">Style</span> with AI
+            </h1>
+            <p class="hero-subtitle">
+                Swipe through your outfits, share your style with friends and shop curated looks. Get instant, personalized recommendations powered by advanced AI. Discover your perfect look in seconds.
+            </p>
+            <div class="hero-cta">
+                <button class="btn btn-primary" onclick="scrollToDownload()">
+                    Download Now
+                </button>
+                <button class="btn btn-secondary" onclick="scrollToFeatures()">
+                    Learn More
+                </button>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="hero-image-container">
+                <div class="hero-image">
+                    <div class="glow"></div>
+                    <div class="hero-icon">
+                        <img src="./assets/icon.png" alt="SnapStudio App Icon">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2 class="section-title">Powerful Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📸</div>
+                <h3 class="feature-title">Smart Photo Capture</h3>
+                <p class="feature-description">
+                    Take photos of your outfits with our optimized camera. AI analyzes style elements instantly.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3 class="feature-title">AI Style Analysis</h3>
+                <p class="feature-description">
+                    Advanced algorithms evaluate color theory, fit, trends, and personal style for perfect recommendations.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⭐</div>
+                <h3 class="feature-title">Real-time Scoring</h3>
+                <p class="feature-description">
+                    Get instant feedback with detailed style scores and personalized suggestions for improvement.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3 class="feature-title">Color Intelligence</h3>
+                <p class="feature-description">
+                    Discover which colors complement your skin tone and personal brand with AI insights.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💾</div>
+                <h3 class="feature-title">Save & Compare</h3>
+                <p class="feature-description">
+                    Build your style gallery and compare outfits to track your style evolution over time.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3 class="feature-title">Cross-Device Sync</h3>
+                <p class="feature-description">
+                    Seamlessly access your style profiles and recommendations on any device, anytime.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🛍️</div>
+                <h3 class="feature-title">Personalized Shopping</h3>
+                <p class="feature-description">
+                    Discover and shop curated outfits tailored to your style preferences and recommendations.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personalized Shopping Section -->
+    <section class="shopping-section" id="shopping">
+        <div class="shopping-content">
+            <h2>Shop Your Perfect Outfits</h2>
+            <p class="shopping-subtitle">
+                Discover handpicked clothing and accessories based on your AI-generated style profile
+            </p>
+            <div class="shopping-features">
+                <div class="shopping-feature">
+                    <div class="shopping-icon">🎯</div>
+                    <h3>Personalized Recommendations</h3>
+                    <p>Get outfit suggestions based on your unique style, body type, and preferences</p>
+                </div>
+                <div class="shopping-feature">
+                    <div class="shopping-icon">🏪</div>
+                    <h3>Integrated Retailers</h3>
+                    <p>Shop directly from your favorite brands and retailers, all in one place</p>
+                </div>
+                <div class="shopping-feature">
+                    <div class="shopping-icon">💳</div>
+                    <h3>Seamless Checkout</h3>
+                    <p>Easy purchasing with secure payments and direct links to complete items</p>
+                </div>
+                <div class="shopping-feature">
+                    <div class="shopping-icon">📊</div>
+                    <h3>Style Budget Tracking</h3>
+                    <p>Set your budget and get recommendations within your price range</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots Section -->
+    <section class="screenshots">
+        <h2 class="section-title">Experience SnapStudio</h2>
+        <div class="screenshots-container">
+            <div class="screenshot">
+                <img src="./assets/app-image.png" alt="SnapStudio App Preview">
+            </div>
+            <div class="screenshot">
+                <img src="./assets/splash-image.png" alt="SnapStudio Promotional Image">
+            </div>
+            <div class="screenshot">
+                <img src="./assets/icon.png" alt="SnapStudio App Icon">
+            </div>
+            <div class="screenshot">
+                <img src="./assets/adaptive-icon.png" alt="SnapStudio Adaptive Icon">
+            </div>
+        </div>
+    </section>
+
+    <!-- Promotional Banner Section -->
+    <section class="promo-banner">
+        <div class="promo-content">
+            <div class="promo-image">
+                <img src="./assets/splash-image.png" alt="SnapStudio Promotional Banner">
+            </div>
+            <div class="promo-text">
+                <h2>Get SnapStudio Today</h2>
+                <p>Join thousands of fashion enthusiasts discovering their perfect style with AI-powered recommendations.</p>
+                <div class="promo-features">
+                    <div class="promo-feature-item">✨ AI-Powered Analysis</div>
+                    <div class="promo-feature-item">🛍️ Personalized Shopping</div>
+                    <div class="promo-feature-item">👥 Share & Connect</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="download">
+        <div class="cta-content">
+            <h2>Ready to Elevate Your Style?</h2>
+            <p>Download SnapStudio now and transform the way you think about fashion.</p>
+            <div class="download-buttons">
+                <a href="javascript:downloadApp('ios')" class="store-button" id="ios-btn">
+                    <span class="store-icon">🍎</span>
+                    <span>App Store</span>
+                </a>
+                <a href="javascript:downloadApp('android')" class="store-button" id="android-btn">
+                    <span class="store-icon">🤖</span>
+                    <span>Google Play</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="#privacy">Privacy Policy</a>
+            <a href="#terms">Terms of Service</a>
+            <a href="#contact">Contact Us</a>
+        </div>
+        <p>&copy; 2024 SnapStudio. All rights reserved.</p>
+    </footer>
+
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
+    <script>
+        // Configuration - Update these URLs when app goes live
+        const config = {
+            appStore: {
+                url: "", // e.g., "https://apps.apple.com/app/snapstudio/id123456789"
+                enabled: false,
+                comingSoon: true
+            },
+            googlePlay: {
+                url: "", // e.g., "https://play.google.com/store/apps/details?id=com.anonymous.snapstudio"
+                enabled: false,
+                comingSoon: true
+            }
+        };
+
+        // Initialize buttons on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDownloadButtons();
+        });
+
+        // Update button states based on configuration
+        function updateDownloadButtons() {
+            const iosBtn = document.getElementById('ios-btn');
+            const androidBtn = document.getElementById('android-btn');
+
+            if (!config.appStore.enabled && config.appStore.comingSoon) {
+                iosBtn.classList.add('disabled');
+                iosBtn.innerHTML = '🍎 <span>App Store <span class="coming-soon-badge">Coming Soon</span></span>';
+                iosBtn.style.pointerEvents = 'none';
+            }
+
+            if (!config.googlePlay.enabled && config.googlePlay.comingSoon) {
+                androidBtn.classList.add('disabled');
+                androidBtn.innerHTML = '🤖 <span>Google Play <span class="coming-soon-badge">Coming Soon</span></span>';
+                androidBtn.style.pointerEvents = 'none';
+            }
+        }
+
+        // Handle app download
+        function downloadApp(platform) {
+            const appConfig = platform === 'ios' ? config.appStore : config.googlePlay;
+
+            if (!appConfig.url) {
+                showNotification(`${platform === 'ios' ? 'App Store' : 'Google Play'} link coming soon!`);
+                return;
+            }
+
+            window.location.href = appConfig.url;
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Smooth scroll
+        function scrollToDownload() {
+            document.getElementById('download').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToFeatures() {
+            document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
