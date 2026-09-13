@@ -586,6 +586,79 @@
             }
         }
 
+        /* Contact Section */
+        .contact-section {
+            padding: var(--xxxl) var(--xl);
+            background: linear-gradient(135deg, var(--bg), var(--surface-1));
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-section h2 {
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            margin-bottom: var(--md);
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .contact-section > div > p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: var(--xxl);
+            text-align: center;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--lg);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--sm);
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: var(--md);
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-hover);
+            box-shadow: 0 0 0 3px rgba(190, 230, 34, 0.1);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .contact-form button {
+            margin-top: var(--md);
+        }
+
         /* CTA Section */
         .cta-section {
             padding: var(--xxxl) var(--xl);
@@ -864,6 +937,14 @@
                 max-width: 150px;
                 max-height: 50px;
             }
+
+            .contact-section {
+                padding: var(--xxl) var(--lg);
+            }
+
+            .contact-section h2 {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
@@ -880,6 +961,7 @@
             <li><a href="#features">Features</a></li>
             <li><a href="#shopping">Shopping</a></li>
             <li><a href="#download">Download</a></li>
+            <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
 
@@ -1070,12 +1152,41 @@
         </div>
     </section>
 
+    <!-- Contact Form Section -->
+    <section class="contact-section" id="contact">
+        <div class="contact-content">
+            <h2>Get In Touch</h2>
+            <p>Have questions or feedback? We'd love to hear from you!</p>
+            <form id="contact-form" class="contact-form" action="https://formsubmit.co/mohitpunia@snapstudio.club" method="POST">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="http://localhost:8000/#thank-you">
+
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Your message or query..." rows="5" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer>
         <div class="footer-links">
             <a href="#privacy">Privacy Policy</a>
             <a href="#terms">Terms of Service</a>
-            <a href="#contact">Contact Us</a>
+            <a href="#contact">Contact</a>
         </div>
         <p>&copy; 2026 SnapStudio. All rights reserved.</p>
     </footer>
@@ -1151,6 +1262,10 @@
 
         function scrollToFeatures() {
             document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToContact() {
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>
