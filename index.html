@@ -681,11 +681,17 @@
             width: 100%;
             transition: all 0.3s ease;
             filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+            background: transparent;
         }
 
         .store-logo-link:hover img {
             filter: drop-shadow(0 8px 20px rgba(190, 230, 34, 0.4));
             transform: translateY(-4px);
+        }
+
+        /* Remove white background from logos */
+        .store-logo-link img {
+            mix-blend-mode: screen;
         }
 
         /* Footer */
