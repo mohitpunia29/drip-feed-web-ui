@@ -621,7 +621,7 @@
         .store-button {
             display: flex;
             align-items: center;
-            gap: var(--sm);
+            gap: var(--md);
             padding: var(--lg) var(--xl);
             background: var(--surface-2);
             border: 2px solid var(--border);
@@ -632,6 +632,11 @@
             cursor: pointer;
             font-size: 14px;
             font-weight: 500;
+        }
+
+        .store-button img {
+            max-height: 40px;
+            width: auto;
         }
 
         .store-button:hover {
@@ -1100,13 +1105,13 @@
 
             if (!config.appStore.enabled && config.appStore.comingSoon) {
                 iosBtn.classList.add('disabled');
-                iosBtn.innerHTML = '🍎 <span>App Store <span class="coming-soon-badge">Coming Soon</span></span>';
+                iosBtn.innerHTML = '<img src="./assets/appstore-icon.png" alt="App Store" style="max-height: 40px; margin-right: 8px;"> <span>App Store <span class="coming-soon-badge">Coming Soon</span></span>';
                 iosBtn.style.pointerEvents = 'none';
             }
 
             if (!config.googlePlay.enabled && config.googlePlay.comingSoon) {
                 androidBtn.classList.add('disabled');
-                androidBtn.innerHTML = '🤖 <span>Google Play <span class="coming-soon-badge">Coming Soon</span></span>';
+                androidBtn.innerHTML = '<img src="./assets/playstore-logo.png" alt="Google Play" style="max-height: 40px; margin-right: 8px;"> <span>Google Play <span class="coming-soon-badge">Coming Soon</span></span>';
                 androidBtn.style.pointerEvents = 'none';
             }
         }
