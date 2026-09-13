@@ -28,16 +28,48 @@ All colors are defined as CSS variables in the `<style>` section for easy custom
 ## 🚀 Quick Start
 
 ### Option 1: Local Development
+
+#### Using Python (Recommended)
 ```bash
-# Open the file directly in your browser
+# Navigate to the project directory
+cd drip-feed-web-ui
+
+# Start the local server (Python 3)
+python3 -m http.server 8000
+
+# For Python 2
+python -m SimpleHTTPServer 8000
+```
+
+Then open your browser and visit: **http://localhost:8000**
+
+#### Using Node.js
+```bash
+# Install http-server globally (if not already installed)
+npm install -g http-server
+
+# Navigate to the project directory
+cd drip-feed-web-ui
+
+# Start the server
+http-server -p 8000
+```
+
+Then open your browser and visit: **http://localhost:8000**
+
+#### Open Directly in Browser (No Server)
+```bash
+# macOS
 open index.html
 
-# Or use a local server (Python)
-python -m http.server 8000
+# Windows
+start index.html
 
-# Or use a local server (Node.js)
-npx http-server
+# Linux
+xdg-open index.html
 ```
+
+**Note:** Opening directly works for basic viewing, but some features may not work properly without a server due to browser security policies.
 
 ### Option 2: Deploy to Web
 
@@ -201,6 +233,35 @@ The page includes:
 - No cookies or tracking (unless you add later)
 - HTTPS ready for all hosting platforms
 
+## 🐛 Troubleshooting Local Development
+
+### Port 8000 Already in Use
+```bash
+# macOS/Linux: Find and kill the process
+lsof -i :8000
+kill -9 <PID>
+
+# Then restart the server
+python3 -m http.server 8000
+```
+
+### Page Not Loading
+- Make sure you're in the correct directory (`drip-feed-web-ui`)
+- Check that `index.html` exists in the current directory
+- Try clearing your browser cache (Cmd+Shift+Delete or Ctrl+Shift+Delete)
+- Try opening in an incognito/private window
+
+### Assets Not Loading (Images, CSS)
+- Ensure all asset files exist in the `./assets/` folder
+- Check browser console for 404 errors (Press F12 → Console tab)
+- Make sure you're accessing via `http://localhost:8000/`, not `file://`
+- Verify file paths in HTML are relative (e.g., `./assets/icon.png`)
+
+### Download Buttons Not Working
+- This is expected if App Store/Google Play URLs are not configured
+- Update the `config` object in `index.html` with your app store links
+- Set `enabled: true` and `comingSoon: false` in the config
+
 ## 🛠️ Maintenance
 
 ### Update Checklist When App Goes Live:
@@ -223,12 +284,13 @@ The page includes:
 
 ## 🚀 Next Steps
 
-1. **Test locally**: Open `index.html` in your browser
-2. **Customize**: Update colors, text, and images
-3. **Add screenshots**: Replace placeholder screenshots with real ones
-4. **Deploy**: Choose your hosting platform
-5. **Update links**: Add store URLs when app launches
-6. **Promote**: Share link on social media and marketing channels
+1. **Test locally**: Run `python3 -m http.server 8000` and visit `http://localhost:8000`
+2. **Check responsiveness**: Test on mobile devices and different screen sizes
+3. **Customize**: Update colors, text, and images as needed
+4. **Add screenshots**: Replace placeholder screenshots with real app screenshots
+5. **Update links**: Add your App Store and Google Play URLs in the `config` object
+6. **Deploy**: Choose your hosting platform (GitHub Pages, Netlify, Vercel, etc.)
+7. **Promote**: Share link on social media and marketing channels
 
 ## 📞 Support
 
