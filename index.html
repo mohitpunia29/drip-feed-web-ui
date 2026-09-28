@@ -429,7 +429,13 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center center;
             border-radius: 24px;
+        }
+
+        /* Adjust image position for drop-outfit screenshot to show header */
+        .screenshot-item:nth-child(3) .screenshot img {
+            object-position: center top;
         }
 
         .screenshot:hover {
@@ -1461,19 +1467,19 @@
         const screenshotsConfig = [
             {
                 id: 1,
-                image: "./assets/screenshot-1-home.png",
+                image: "./assets/screenshot-0-home.png",
                 title: "Home Feed",
                 description: "Browse through outfit feeds with instant AI-powered SNAP SCORES. See how your style ranks with detailed metrics."
             },
             {
                 id: 2,
-                image: "./assets/screenshot-2-swipe.png",
+                image: "./assets/screenshot-1-swipe.png",
                 title: "Swipe",
                 description: "Swipe through personalized outfit recommendations. Interactive interface to discover new styles that match your taste."
             },
             {
                 id: 3,
-                image: "./assets/screenshot-0-drop-outfit.png",
+                image: "./assets/screenshot-2-drop-outfit.png",
                 title: "Drop Your Outfit",
                 description: "Something extraordinary is coming! Upload your own outfit photos for AI analysis. Get ready for an exceptional feature designed exclusively for you."
             },
