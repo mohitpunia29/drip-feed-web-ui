@@ -393,26 +393,36 @@
             background: linear-gradient(180deg, var(--bg) 0%, var(--surface-1) 100%);
         }
 
-        .screenshots-container {
-            max-width: 1200px;
+        .screenshots-wrapper {
+            max-width: 1400px;
             margin: 0 auto;
+        }
+
+        .screenshots-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: var(--xl);
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--xxl);
+        }
+
+        .screenshot-item {
+            display: flex;
+            flex-direction: column;
+            gap: var(--lg);
         }
 
         .screenshot {
             border-radius: 24px;
             overflow: hidden;
             border: 1px solid var(--border);
-            aspect-ratio: 1;
             background: var(--surface-2);
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
+            aspect-ratio: 9 / 16;
+            max-height: 500px;
         }
 
         .screenshot img {
@@ -423,8 +433,23 @@
         }
 
         .screenshot:hover {
-            transform: scale(1.02);
-            box-shadow: 0 15px 50px rgba(190, 230, 34, 0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(190, 230, 34, 0.3);
+            border-color: var(--accent-hover);
+        }
+
+        .screenshot-item h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+            margin: 0;
+        }
+
+        .screenshot-item p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.6;
         }
 
         .screenshot-placeholder {
@@ -1229,18 +1254,47 @@
     <!-- Screenshots Section -->
     <section class="screenshots">
         <h2 class="section-title">Experience SnapStudio</h2>
-        <div class="screenshots-container">
-            <div class="screenshot">
-                <img src="./assets/app-image.png" alt="SnapStudio App Preview">
-            </div>
-            <div class="screenshot">
-                <img src="./assets/splash-image.png" alt="SnapStudio Promotional Image">
-            </div>
-            <div class="screenshot">
-                <img src="./assets/icon.png" alt="SnapStudio App Icon">
-            </div>
-            <div class="screenshot">
-                <img src="./assets/adaptive-icon.png" alt="SnapStudio Adaptive Icon">
+        <div class="screenshots-wrapper">
+            <div class="screenshots-grid">
+                <div class="screenshot-item">
+                    <div class="screenshot">
+                        <img src="./assets/screenshot-1-home.png" alt="Home Feed - Discover outfits with AI scoring">
+                    </div>
+                    <h3>Discover & Score</h3>
+                    <p>Browse through outfit feeds with instant AI-powered SNAP SCORES. See how your style ranks with detailed metrics.</p>
+                </div>
+
+                <div class="screenshot-item">
+                    <div class="screenshot">
+                        <img src="./assets/screenshot-2-swipe.png" alt="Swipe - Browse outfit recommendations">
+                    </div>
+                    <h3>Swipe & Explore</h3>
+                    <p>Swipe through personalized outfit recommendations. Interactive interface to discover new styles that match your taste.</p>
+                </div>
+
+                <div class="screenshot-item">
+                    <div class="screenshot">
+                        <img src="./assets/screenshot-3-analysis.png" alt="Analysis - AI insights and detailed breakdown">
+                    </div>
+                    <h3>AI-Powered Analysis</h3>
+                    <p>Get detailed AI insights with breakdown scores for Style, Photo Quality, and Trend Rating. Professional styling feedback.</p>
+                </div>
+
+                <div class="screenshot-item">
+                    <div class="screenshot">
+                        <img src="./assets/screenshot-4-shop.png" alt="Shop the Look - Buy coordinated items">
+                    </div>
+                    <h3>Shop the Look</h3>
+                    <p>Shop complete outfits directly in the app. Integrated products from favorite brands with one-click purchasing.</p>
+                </div>
+
+                <div class="screenshot-item">
+                    <div class="screenshot">
+                        <img src="./assets/screenshot-5-try-on.png" alt="Try It On - Virtual outfit preview">
+                    </div>
+                    <h3>Virtual Try-On</h3>
+                    <p>Pick pieces and see yourself wear them before buying. AR-powered virtual try-on to visualize complete looks.</p>
+                </div>
             </div>
         </div>
     </section>
