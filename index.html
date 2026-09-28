@@ -1255,55 +1255,7 @@
     <section class="screenshots">
         <h2 class="section-title">Experience SnapStudio</h2>
         <div class="screenshots-wrapper">
-            <div class="screenshots-grid">
-                <div class="screenshot-item">
-                    <div class="screenshot">
-                        <img src="./assets/screenshot-0-drop-outfit.png" alt="Drop Your Outfit - Coming Soon feature">
-                    </div>
-                    <h3>Drop Your Outfit</h3>
-                    <p>Something extraordinary is coming! Upload your own outfit photos for AI analysis. Get ready for an exceptional feature designed exclusively for you.</p>
-                </div>
-
-                <div class="screenshot-item">
-                    <div class="screenshot">
-                        <img src="./assets/screenshot-1-home.png" alt="Home Feed - Discover outfits with AI scoring">
-                    </div>
-                    <h3>Discover & Score</h3>
-                    <p>Browse through outfit feeds with instant AI-powered SNAP SCORES. See how your style ranks with detailed metrics.</p>
-                </div>
-
-                <div class="screenshot-item">
-                    <div class="screenshot">
-                        <img src="./assets/screenshot-2-swipe.png" alt="Swipe - Browse outfit recommendations">
-                    </div>
-                    <h3>Swipe & Explore</h3>
-                    <p>Swipe through personalized outfit recommendations. Interactive interface to discover new styles that match your taste.</p>
-                </div>
-
-                <div class="screenshot-item">
-                    <div class="screenshot">
-                        <img src="./assets/screenshot-3-analysis.png" alt="Analysis - AI insights and detailed breakdown">
-                    </div>
-                    <h3>AI-Powered Analysis</h3>
-                    <p>Get detailed AI insights with breakdown scores for Style, Photo Quality, and Trend Rating. Professional styling feedback.</p>
-                </div>
-
-                <div class="screenshot-item">
-                    <div class="screenshot">
-                        <img src="./assets/screenshot-4-shop.png" alt="Shop the Look - Buy coordinated items">
-                    </div>
-                    <h3>Shop the Look</h3>
-                    <p>Shop complete outfits directly in the app. Integrated products from favorite brands with one-click purchasing.</p>
-                </div>
-
-                <div class="screenshot-item">
-                    <div class="screenshot">
-                        <img src="./assets/screenshot-5-try-on.png" alt="Try It On - Virtual outfit preview">
-                    </div>
-                    <h3>Virtual Try-On</h3>
-                    <p>Pick pieces and see yourself wear them before buying. AR-powered virtual try-on to visualize complete looks.</p>
-                </div>
-            </div>
+            <div class="screenshots-grid" id="screenshots-container"></div>
         </div>
     </section>
 
@@ -1489,7 +1441,9 @@
     <div class="notification" id="notification"></div>
 
     <script>
-        // Configuration - Update these URLs when app goes live
+        // ===== APP CONFIGURATION =====
+
+        // App Store & Google Play Configuration
         const config = {
             appStore: {
                 url: "", // e.g., "https://apps.apple.com/app/snapstudio/id123456789"
@@ -1503,9 +1457,66 @@
             }
         };
 
-        // Initialize buttons on page load
+        // Screenshots Configuration - Easy to add/modify/reorder
+        const screenshotsConfig = [
+            {
+                id: 1,
+                image: "./assets/screenshot-0-drop-outfit.png",
+                title: "Drop Your Outfit",
+                description: "Something extraordinary is coming! Upload your own outfit photos for AI analysis. Get ready for an exceptional feature designed exclusively for you."
+            },
+            {
+                id: 2,
+                image: "./assets/screenshot-1-home.png",
+                title: "Discover & Score",
+                description: "Browse through outfit feeds with instant AI-powered SNAP SCORES. See how your style ranks with detailed metrics."
+            },
+            {
+                id: 3,
+                image: "./assets/screenshot-2-swipe.png",
+                title: "Swipe & Explore",
+                description: "Swipe through personalized outfit recommendations. Interactive interface to discover new styles that match your taste."
+            },
+            {
+                id: 4,
+                image: "./assets/screenshot-3-analysis.png",
+                title: "AI-Powered Analysis",
+                description: "Get detailed AI insights with breakdown scores for Style, Photo Quality, and Trend Rating. Professional styling feedback."
+            },
+            {
+                id: 5,
+                image: "./assets/screenshot-4-shop.png",
+                title: "Shop the Look",
+                description: "Shop complete outfits directly in the app. Integrated products from favorite brands with one-click purchasing."
+            },
+            {
+                id: 6,
+                image: "./assets/screenshot-5-try-on.png",
+                title: "Virtual Try-On",
+                description: "Pick pieces and see yourself wear them before buying. AR-powered virtual try-on to visualize complete looks."
+            }
+        ];
+
+        // Render Screenshots from Configuration
+        function renderScreenshots() {
+            const container = document.getElementById('screenshots-container');
+            if (!container) return;
+
+            container.innerHTML = screenshotsConfig.map(screenshot => `
+                <div class="screenshot-item">
+                    <div class="screenshot">
+                        <img src="${screenshot.image}" alt="${screenshot.title}">
+                    </div>
+                    <h3>${screenshot.title}</h3>
+                    <p>${screenshot.description}</p>
+                </div>
+            `).join('');
+        }
+
+        // Initialize on page load
         document.addEventListener('DOMContentLoaded', () => {
             updateDownloadButtons();
+            renderScreenshots();
         });
 
         // Update button states based on configuration
